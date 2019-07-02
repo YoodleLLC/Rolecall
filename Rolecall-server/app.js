@@ -11,6 +11,7 @@ var session=require('express-session');
 
 var categories=require("./routes/categories/categories");
 var questions=require("./routes/questions/questions");
+var users=require("./routes/users/users");
 
 
 
@@ -48,7 +49,9 @@ app.use(log);
 
 app.use("/categories/categories",categories);
 app.use("/questions/questions",questions);
+app.use("/users/users",users);
 
+app.get('/', (req, res) => res.send('Hello World!'))
 
 function log(req,res,next){
     console.log(new Date(),req.method,req.url);

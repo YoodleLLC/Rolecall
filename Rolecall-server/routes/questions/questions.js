@@ -4,6 +4,7 @@ var MongoClient = require('mongodb').MongoClient;
 var cors = require('cors');
 var mongo=require('mongodb');
 connectionString="mongodb://rolecallpro:rolecallpro@rolecallpro-shard-00-00-5cpm4.mongodb.net:27017,rolecallpro-shard-00-01-5cpm4.mongodb.net:27017,rolecallpro-shard-00-02-5cpm4.mongodb.net:27017/rolecallpro?ssl=true&replicaSet=RolecallPro-shard-0&authSource=admin&retryWrites=true&w=majority";
+
 /*
 var authenticate=require('../../common/authenticate');
 */
