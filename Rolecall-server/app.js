@@ -12,6 +12,7 @@ var session=require('express-session');
 var categories=require("./routes/categories/categories");
 var questions=require("./routes/questions/questions");
 var users=require("./routes/users/users");
+var roles = require("./routes/roles/roles");
 
 
 
@@ -50,6 +51,7 @@ app.use(log);
 app.use("/categories/categories",categories);
 app.use("/questions/questions",questions);
 app.use("/users/users",users);
+app.use("/roles/roles",roles);
 
 app.get('/', (req, res) => res.send('Hello World!'))
 

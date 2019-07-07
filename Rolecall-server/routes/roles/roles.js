@@ -1,5 +1,5 @@
 var express = require('express');
-var usersRouter = express.Router();
+var rolesRouter = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 var cors = require('cors');
 
@@ -9,16 +9,15 @@ connectionString="mongodb://rolecallpro:rolecallpro@rolecallpro-shard-00-00-5cpm
 
 const dbName = "rolecallpro";
 
-usersRouter.get('/all', function (req, res) {
+rolesRouter.get('/all', function (req, res) {
     //connect to Mongo Client
     MongoClient.connect(connectionString, { useNewUrlParser: true }, function (err, client) {
         if (err) {
             console.log(err);
         }
         else {
-        const db = client.db(dbName);
-        // const collection = db.collection("users");
-            db.collection("users").find({}).toArray().
+            const db = client.db(dbName);
+            db.collection("roles").find({}).toArray().
             then(function (data, err) {
                 console.dir(data);
                 res.send(data);
@@ -27,26 +26,16 @@ usersRouter.get('/all', function (req, res) {
     });
 });
 
-usersRouter.post('/adduser', function (req, res) {
+rolesRouter.post('/addrole', function (req, res) {
     MongoClient.connect(connectionString, { useNewUrlParser: true }, function (err, client) {
         const db = client.db(dbName);
-        db.collection("users").insert(req.body.user, (err, res) => {
+        db.collection("roles").insert(req.body.role, (err, res) => {
             if (err) throw err;
-            console.log("User added successfully");
+            console.log("Role added successfully");
             db.close();
         });
     });
 });
 
-usersRouter.post('/updateuser', function (req, res) {
-    MongoClient.connect(connectionString, { useNewUrlParser: true }, function (err, client) {
-        const db = client.db(dbName);
-        db.collection("users").updateOne(req.body.user._id, req.body.user, (err, res) => {
-            if (err) throw err;
-            console.log("User details updated");
-            db.close();
-        });
-    });
-});
 
-module.exports = usersRouter;
+module.exports = rolesRouter;
