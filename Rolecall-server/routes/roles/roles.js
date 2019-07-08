@@ -29,13 +29,22 @@ rolesRouter.get('/all', function (req, res) {
 rolesRouter.post('/addrole', function (req, res) {
     MongoClient.connect(connectionString, { useNewUrlParser: true }, function (err, client) {
         const db = client.db(dbName);
-        db.collection("roles").insert(req.body.role, (err, res) => {
+        //var myobj = { name: "Student", permission: "Read"}; //req.body.role
+        db.collection("roles").insertOne(req.body.role, (err, res) => {
             if (err) throw err;
             console.log("Role added successfully");
-            db.close();
         });
     });
 });
 
+rolesRouter.post('/updaterole', function (req, res) {
+    MongoClient.connect(connectionString, { useNewUrlParser: true }, function (err, client) {
+        const db = client.db(dbName);
+        db.collection("roles").updateOne(req.body.role._id, req.body.role, (err, res) => {
+            if (err) throw err;
+            console.log("Role updated successfully");
+        });
+    });
+});
 
 module.exports = rolesRouter;

@@ -30,10 +30,10 @@ usersRouter.get('/all', function (req, res) {
 usersRouter.post('/adduser', function (req, res) {
     MongoClient.connect(connectionString, { useNewUrlParser: true }, function (err, client) {
         const db = client.db(dbName);
-        db.collection("users").insert(req.body.user, (err, res) => {
+        //var myobj = { fname: "Neha", lname: "Navgale", address: "Kansas City", ph: "9135498103", email: "nn78d@mail.umkc.edu"};
+        db.collection("users").insertOne(req.body.user, (err, res) => {
             if (err) throw err;
             console.log("User added successfully");
-            db.close();
         });
     });
 });
@@ -44,7 +44,6 @@ usersRouter.post('/updateuser', function (req, res) {
         db.collection("users").updateOne(req.body.user._id, req.body.user, (err, res) => {
             if (err) throw err;
             console.log("User details updated");
-            db.close();
         });
     });
 });

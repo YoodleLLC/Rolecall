@@ -30,13 +30,25 @@ organizationsRouter.get('/all', function (req, res) {
 organizationsRouter.post('/addorganization', function (req, res) {
     MongoClient.connect(connectionString, { useNewUrlParser: true }, function (err, client) {
         const db = client.db(dbName);
-        db.collection("organizations").insert(req.body.organization, (err, res) => {
+        //var myobj = { name: "UMKC", address: "Kansas City", ph: "9135498103", admin: "Neha"}; //req.body.organization
+        db.collection("organizations").insertOne(req.body.organization, (err, res) => {
             if (err) throw err;
             console.log("Organization added successfully");
-            db.close();
         });
     });
 });
+
+organizationsRouter.post('/updateorganization', function (req, res) {
+    MongoClient.connect(connectionString, { useNewUrlParser: true }, function (err, client) {
+        const db = client.db(dbName);
+        db.collection("organizations").updateOne(req.body.organization._id, req.body.organization, (err, res) => {
+            if (err) throw err;
+            console.log("Organization updated successfully");
+        });
+    });
+
+});
+
 
 
 module.exports = organizationsRouter;
